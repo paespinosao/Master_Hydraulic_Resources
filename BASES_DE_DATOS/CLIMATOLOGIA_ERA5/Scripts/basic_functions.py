@@ -45,12 +45,12 @@ def min_ind (value, vector, delta):
     - Ind: indices donde mayor se aproxima el valor buscado a los vectores
     """
     indices = np.where((vector > value-(delta)) & (vector < value+(delta)))[0]
-    for i in indices: 
+    for i in range(len(indices)):
         try :
-            if vector[i] - value < vector[i+1] - value:
-                ind = i
+            if np.abs(vector[indices[i]] - value) < np.abs(vector[indices[i+1]] - value):
+                ind = indices[i]
             else:
-                ind = i+1
+                ind = indices[i+1]
         except:
             print('**********ERROR************')
     

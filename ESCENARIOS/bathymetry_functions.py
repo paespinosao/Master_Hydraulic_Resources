@@ -61,15 +61,17 @@ def min_ind_rotated_grid (value1, vector1, value2, vector2, delta, view_coords:b
     """
     indices = np.where(((vector1 > value1-(delta)) & (vector1 < value1+(delta))) & 
                         ((vector2 > value2-(delta)) & (vector2 < value2+(delta))))
+    indicesi = indices[0]
+    indicesj = indices[1]
 
-    for i, j in zip(indices[0], indices[1]): 
+    for i, j in zip(range(len(indicesi)), range(len(indicesj))): 
         try :
-            if( vector1[i, j] - value1 < vector1[i+1, j+1] - value1) & (vector2[i, j] - value2 < vector2[i+1, j+1] - value2):
-                indi = i
-                indj = j
+            if( np.abs(vector1[indicesi[i], indicesj[j]] - value1) < np.abs(vector1[indicesi[i+1], indicesj[j+1]] - value1)) & (np.abs(vector2[indicesi[i], indicesj[j]] - value2) < np.abs(vector2[indicesi[i+1], indicesj[j+1]] - value2)):
+                indi = indicesi[i]
+                indj = indicesj[j]
             else:
-                indi = i+1
-                indj = j+1
+                indi = indicesi[i+1]
+                indj = indicesj[j+1]
         except:
             print('************error**********************')
     if view_coords == True:
